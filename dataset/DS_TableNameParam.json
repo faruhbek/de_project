@@ -1,0 +1,25 @@
+{
+	"name": "DS_TableNameParam",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_OnPrem_AdventureWorks",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableNameParam": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "Sales",
+			"table": {
+				"value": "@dataset().TableNameParam",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

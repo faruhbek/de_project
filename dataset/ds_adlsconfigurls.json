@@ -1,0 +1,31 @@
+{
+	"name": "ds_adlsconfigurls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_Storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "table-configCVS (1).json",
+				"folderPath": "config_files",
+				"fileSystem": "configs"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"urls": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

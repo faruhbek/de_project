@@ -1,0 +1,24 @@
+{
+	"name": "trgr_Daily_OnlineCSV",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_Copy_Online",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2025-04-01T06:00:00",
+				"timeZone": "Central Standard Time"
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"name": "DS_AzureSqlTableBnmData_configTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSqlDatabaseBnmData",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "schema_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "table_name",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "config_table"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
