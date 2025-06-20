@@ -1,0 +1,36 @@
+{
+	"name": "ls_http_githubparam",
+	"properties": {
+		"parameters": {
+			"repoOwner": {
+				"type": "String",
+				"defaultValue": "faruhbek"
+			},
+			"repoName": {
+				"type": "String",
+				"defaultValue": "de_project"
+			},
+			"branchName": {
+				"type": "String",
+				"defaultValue": "main"
+			}
+		},
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "@{concat('https://raw.githubusercontent.com/',\n        linkedService().repoOwner,'/',\n        linkedService().repoName,'/',\n        linkedService().branchName,'/')}",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "faruhbek@gmail.com",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "kv_testing",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "github-token",
+				"secretVersion": "bed043ebd1744f149ebef922645bf4ed"
+			}
+		}
+	}
+}
