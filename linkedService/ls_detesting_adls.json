@@ -1,0 +1,18 @@
+{
+	"name": "ls_detesting_adls",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://strgdetestadls.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "kv_testing",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "kv-adls-creds"
+			}
+		}
+	}
+}
