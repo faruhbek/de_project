@@ -97,9 +97,16 @@
 				}
 			},
 			{
-				"name": "Notebook1",
+				"name": "LookupManifest",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "GetFileMetadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -125,6 +132,39 @@
 					"referenceName": "ls_detest_databricks",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "LookupManifest",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@or(\n  empty(activity('LookupManifest').output.value),\n  not(equals(\n    activity('LookupManifest').output.value[0].sha,\n    activity('GetFileMetadata').output.body.sha\n  ))\n)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -133,6 +173,11 @@
 			},
 			"fileName": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"logMessage": {
+				"type": "String"
 			}
 		},
 		"annotations": []
