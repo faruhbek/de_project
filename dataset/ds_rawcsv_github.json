@@ -13,11 +13,11 @@
 		"parameters": {
 			"folderPath": {
 				"type": "String",
-				"defaultValue": "raw/items"
+				"defaultValue": " "
 			},
 			"fileName": {
 				"type": "String",
-				"defaultValue": "item.csv"
+				"defaultValue": " "
 			}
 		},
 		"annotations": [],
