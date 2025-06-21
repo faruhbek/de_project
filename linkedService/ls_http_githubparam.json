@@ -18,7 +18,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "@{concat('https://raw.githubusercontent.com/',\n        linkedService().repoOwner,'/',\n        linkedService().repoName,'/',\n        linkedService().branchName,'/')}",
+			"url": "@{concat(\n  'https://raw.githubusercontent.com/',\n  linkedService().repoOwner,      '/', \n  linkedService().repoName,       '/',\n  'refs/heads/', \n  linkedService().branchName,     '/'\n)}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
 			"userName": "faruhbek",
