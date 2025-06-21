@@ -93,7 +93,10 @@
 							"type": "LinkedServiceReference"
 						}
 					],
-					"url": "repos/faruhbek/de_project/contents/@{pipeline().parameters.folderPath}/@{pipeline().parameters.fileName}?ref=main"
+					"url": {
+						"value": "repos/faruhbek/de_project/contents/@{pipeline().parameters.folderPath}/@{pipeline().parameters.fileName}?ref=main",
+						"type": "Expression"
+					}
 				}
 			},
 			{
@@ -160,7 +163,62 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"waitOnCompletion": true
+								"pipeline": {
+									"referenceName": "ProcessFyleByType",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"folderPath": {
+										"value": "@pipeline().parameters.folderPath",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@pipeline().parameters.fileName",
+										"type": "Expression"
+									}
+								}
+							}
+						},
+						{
+							"name": "Notebook1",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "Execute Pipeline1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/faruhbek@gmail.com/de_project/upsert_manifest",
+								"baseParameters": {
+									"folderPath": {
+										"value": "@pipeline().parameters.folderPath",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@pipeline().parameters.fileName",
+										"type": "Expression"
+									},
+									"sha": {
+										"value": "@activity('GetFileMetadata').output.body.sha",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_detest_databricks",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
