@@ -1,0 +1,14 @@
+{
+	"name": "IngestFile",
+	"properties": {
+		"parameters": {
+			"folderPath": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
