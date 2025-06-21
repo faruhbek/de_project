@@ -1,0 +1,9 @@
+{
+	"name": "IR-SelfHostedLocal",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"selfContainedInteractiveAuthoringEnabled": true
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "adf-lab-factory-dev",
+	"location": "northcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a24c7acc-cf4a-430d-8d71-53b68ec174f9",
+		"tenantId": "c3801edf-dd35-4d5b-8e1c-a3eb6f1366a7"
+	}
+}

@@ -1,0 +1,57 @@
+{
+	"name": "ds_sql_Vendor",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_OnPrem_AdventureWorks",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL Datasets"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "BusinessEntityID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AccountNumber",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CreditRating",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "PreferredVendorStatus",
+				"type": "bit"
+			},
+			{
+				"name": "ActiveFlag",
+				"type": "bit"
+			},
+			{
+				"name": "PurchasingWebServiceURL",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "Purchasing",
+			"table": "Vendor"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
