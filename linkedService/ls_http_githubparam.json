@@ -21,15 +21,14 @@
 			"url": "@{concat('https://raw.githubusercontent.com/',\n        linkedService().repoOwner,'/',\n        linkedService().repoName,'/',\n        linkedService().branchName,'/')}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
-			"userName": "faruhbek@gmail.com",
+			"userName": "faruhbek",
 			"password": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
 					"referenceName": "kv_testing",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "github-token",
-				"secretVersion": "bed043ebd1744f149ebef922645bf4ed"
+				"secretName": "githubpass"
 			}
 		}
 	}
