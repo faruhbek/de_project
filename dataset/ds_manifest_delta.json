@@ -1,0 +1,20 @@
+{
+	"name": "ds_manifest_delta",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_detesting_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Delta",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "_metadata/fileManifest",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
