@@ -1,0 +1,41 @@
+{
+	"name": "ds_rawcsv_github",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_http_githubparam",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"repoOwner": "faruhbek",
+				"repoName": "de_project",
+				"branchName": "main"
+			}
+		},
+		"parameters": {
+			"folderPath": {
+				"type": "String",
+				"defaultValue": "raw/items"
+			},
+			"fileName": {
+				"type": "String",
+				"defaultValue": "item.csv"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@concat(dataset().folderPath, '/' ,dataset().fileName)",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
