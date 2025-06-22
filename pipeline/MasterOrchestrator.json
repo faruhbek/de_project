@@ -36,7 +36,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('ListRawFolders').output.body",
+						"value": "@json(activity('ListRawFolders').output.Response)\n",
 						"type": "Expression"
 					},
 					"activities": [
@@ -55,7 +55,7 @@
 							"typeProperties": {
 								"method": "GET",
 								"url": {
-									"value": "repos/faruhbek/de_project/contents/@{item().path}?ref=main\n\n",
+									"value": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main\n\n\n",
 									"type": "Expression"
 								}
 							}
