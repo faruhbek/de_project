@@ -1,0 +1,98 @@
+{
+	"name": "forEach",
+	"properties": {
+		"activities": [
+			{
+				"name": "ListFilesInFolder",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": {
+						"value": "repos/faruhbek/de_project/contents/@{item().path}?ref=main\n\n",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "FilterToFiles",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "ListFilesInFolder",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('ListFilesInFolder').output.body",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@equals(item().type,'file')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEachFile",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "FilterToFiles",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('FilterToFiles').output.Value  \n",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "IngestFile",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"folderPath": {
+										"value": "@item().folderPath",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@item().fileName",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
