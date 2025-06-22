@@ -97,13 +97,13 @@
 							"userProperties": [],
 							"typeProperties": {
 								"items": {
-									"value": "@json(activity('FilterToFiles').output.Response)\n",
+									"value": "@activity('FilterToFiles').output.value\n\n",
 									"type": "Expression"
 								},
 								"isSequential": false,
 								"activities": [
 									{
-										"name": "IngestFile_copy1",
+										"name": "IngestFile",
 										"type": "ExecutePipeline",
 										"dependsOn": [],
 										"policy": {
@@ -118,11 +118,11 @@
 											"waitOnCompletion": true,
 											"parameters": {
 												"folderPath": {
-													"value": "@item().folderPath",
+													"value": "@item().Path",
 													"type": "Expression"
 												},
 												"fileName": {
-													"value": "@item().fileName",
+													"value": "@item().name",
 													"type": "Expression"
 												}
 											}
