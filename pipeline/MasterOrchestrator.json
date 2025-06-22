@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"method": "GET",
 					"url": {
-						"value": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main",
+						"value": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main\n",
 						"type": "Expression"
 					}
 				}
