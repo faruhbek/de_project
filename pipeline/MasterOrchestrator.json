@@ -16,14 +16,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"method": "GET",
-					"linkedServices": [
-						{
-							"referenceName": "ls_http_githubapi",
-							"type": "LinkedServiceReference"
-						}
-					],
 					"url": {
-						"value": "repos/faruhbek/de_project/contents/raw?ref=main",
+						"value": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main",
 						"type": "Expression"
 					}
 				}
