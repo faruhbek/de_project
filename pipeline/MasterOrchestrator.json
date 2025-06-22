@@ -82,53 +82,53 @@
 									"type": "Expression"
 								}
 							}
-						}
-					]
-				}
-			},
-			{
-				"name": "ForEachFile",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "ForEachFolder",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('FilterToFiles').output.Value  \n",
-						"type": "Expression"
-					},
-					"isSequential": false,
-					"activities": [
+						},
 						{
-							"name": "IngestFile",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"policy": {
-								"secureInput": false
-							},
+							"name": "ForEachFile_copy1",
+							"type": "ForEach",
+							"dependsOn": [
+								{
+									"activity": "FilterToFiles",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "IngestFile",
-									"type": "PipelineReference"
+								"items": {
+									"value": "@json(activity('FilterToFiles').output.Response)\n",
+									"type": "Expression"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"folderPath": {
-										"value": "@item().folderPath",
-										"type": "Expression"
-									},
-									"fileName": {
-										"value": "@item().fileName",
-										"type": "Expression"
+								"isSequential": false,
+								"activities": [
+									{
+										"name": "IngestFile_copy1",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"policy": {
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "IngestFile",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"folderPath": {
+													"value": "@item().folderPath",
+													"type": "Expression"
+												},
+												"fileName": {
+													"value": "@item().fileName",
+													"type": "Expression"
+												}
+											}
+										}
 									}
-								}
+								]
 							}
 						}
 					]
