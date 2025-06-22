@@ -99,7 +99,7 @@
 						}
 					],
 					"url": {
-						"value": "repos/faruhbek/de_project/contents/@{pipeline().parameters.folderPath}/@{pipeline().parameters.fileName}?ref=main",
+						"value": "\nhttps://api.github.com/repos/faruhbek/de_project/contents/@{pipeline().parameters.folderPath}/@{pipeline().parameters.fileName}?ref=main\n",
 						"type": "Expression"
 					}
 				}

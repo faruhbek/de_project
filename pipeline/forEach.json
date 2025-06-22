@@ -1,48 +1,6 @@
 {
 	"name": "forEach",
 	"properties": {
-		"activities": [
-			{
-				"name": "ForEachFile",
-				"type": "ForEach",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('FilterToFiles').output.Value  \n",
-						"type": "Expression"
-					},
-					"activities": [
-						{
-							"name": "IngestFile",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"policy": {
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "IngestFile",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"folderPath": {
-										"value": "@item().folderPath",
-										"type": "Expression"
-									},
-									"fileName": {
-										"value": "@item().fileName",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
-				}
-			}
-		],
 		"annotations": []
 	}
 }

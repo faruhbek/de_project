@@ -1,0 +1,96 @@
+{
+	"name": "MasterOrchestrationV2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ListFilesInRaw",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main"
+				}
+			},
+			{
+				"name": "FiltertoFiles",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "ListFilesInRaw",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@json(activity('ListFilesInRaw').output.Response)  ",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@equals(item().type,'file')  ",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEachFile",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "FiltertoFiles",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('FilterToFiles').output.value\n\n",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "IngestFile",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "IngestFile",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"folderPath": {
+										"value": "raw",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}

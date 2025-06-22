@@ -86,6 +86,8 @@
 						{
 							"name": "ForEachFile_copy1",
 							"type": "ForEach",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "FilterToFiles",
@@ -129,6 +131,54 @@
 										}
 									}
 								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "ForEachFile_copy1_copy1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "ForEachFolder",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('FilterToFiles').output.value\n\n",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "IngestFile_copy1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "IngestFile",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"folderPath": {
+										"value": "@item().Path",
+										"type": "Expression"
+									},
+									"fileName": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
