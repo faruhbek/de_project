@@ -7,7 +7,15 @@
 			"domain": "https://adb-1327860115148915.15.azuredatabricks.net",
 			"authentication": "MSI",
 			"workspaceResourceId": "/subscriptions/9d16ccf0-c7ea-41fb-876b-cacbf8283dee/resourceGroups/rg-adf-labs/providers/Microsoft.Databricks/workspaces/db-dataclassdev",
-			"existingClusterId": "0522-232346-4sbb00rw"
+			"newClusterNodeType": "Standard_D3_v2",
+			"newClusterNumOfWorker": "1",
+			"newClusterSparkEnvVars": {
+				"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+			},
+			"newClusterVersion": "15.4.x-scala2.12",
+			"clusterOption": "Fixed",
+			"newClusterInitScripts": [],
+			"dataSecurityMode": "USER_ISOLATION"
 		}
 	}
 }
