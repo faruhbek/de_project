@@ -119,11 +119,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderPath": {
-											"value": "@activity('FiltertoFiles').output.Value.path",
+											"value": "@activity('FiltertoFiles').output.Value[0].path",
 											"type": "Expression"
 										},
 										"fileName": {
-											"value": "@activity('FiltertoFiles').output.Value.name",
+											"value": "@activity('FiltertoFiles').output.Value[0].name",
 											"type": "Expression"
 										}
 									}
@@ -158,7 +158,7 @@
 									}
 								],
 								"url": {
-									"value": "\nhttps://api.github.com/repos/faruhbek/de_project/contents/@{pipeline().parameters.folderPath}/@{pipeline().parameters.fileName}?ref=main\n",
+									"value": "\nhttps://api.github.com/repos/faruhbek/de_project/contents/raw/@{activity('FiltertoFiles').output.Value.name}?ref=main\n",
 									"type": "Expression"
 								}
 							}
