@@ -1,12 +1,12 @@
 {
-	"name": "SHAFileDataset",
+	"name": "SHAInputDataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_detesting_adls",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"fileName": {
+			"shaValue": {
 				"type": "string"
 			}
 		},
@@ -15,15 +15,13 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().fileName",
-					"type": "Expression"
-				},
-				"fileSystem": "metadata"
+				"fileName": "*.csv",
+				"folderPath": "raw",
+				"fileSystem": "metastorecontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
+			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
 		"schema": [

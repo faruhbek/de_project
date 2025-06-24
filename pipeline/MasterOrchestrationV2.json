@@ -62,75 +62,6 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "CopyToLanding",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "HttpReadSettings",
-										"requestMethod": "GET"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "ds_rawcsv_github",
-									"type": "DatasetReference",
-									"parameters": {
-										"folderPath": {
-											"value": "@item().path",
-											"type": "Expression"
-										},
-										"fileName": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "ds_landing_csv",
-									"type": "DatasetReference",
-									"parameters": {
-										"folderPath": {
-											"value": "@item().path",
-											"type": "Expression"
-										},
-										"fileName": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						},
-						{
 							"name": "GetFileMetadata",
 							"type": "WebActivity",
 							"dependsOn": [],
@@ -159,7 +90,14 @@
 						{
 							"name": "LookupSHA",
 							"type": "Lookup",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "GetFileMetadata",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -182,14 +120,271 @@
 								},
 								"dataset": {
 									"referenceName": "SHAFileDataset",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@concat(item().name, '.sha.txt')",
+											"type": "Expression"
+										}
+									}
+								},
+								"firstRowOnly": true
+							}
+						},
+						{
+							"name": "CheckSHAChanged",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "FallbackSHA",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetPreviousSHA",
+									"dependencyConditions": [
+										"Succeeded"
+									]
 								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@not(equals(activity('GetFileMetadata').output.sha, variables('SetPreviousSHA')))",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "CopyToLanding",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "HttpReadSettings",
+													"requestMethod": "GET"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "ds_rawcsv_github",
+												"type": "DatasetReference",
+												"parameters": {
+													"folderPath": {
+														"value": "@item().path",
+														"type": "Expression"
+													},
+													"fileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "ds_landing_csv",
+												"type": "DatasetReference",
+												"parameters": {
+													"folderPath": {
+														"value": "@item().path",
+														"type": "Expression"
+													},
+													"fileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "UpdateSHAInADLS",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "SetSHAValue",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "SHAInputDataset",
+												"type": "DatasetReference",
+												"parameters": {
+													"shaValue": {
+														"value": "@variables('SetSHAValue')",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "SHAFileDataset",
+												"type": "DatasetReference",
+												"parameters": {
+													"fileName": {
+														"value": "@concat(item().name, '.sha.txt')\n\n",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "SetSHAValue",
+										"type": "SetVariable",
+										"dependsOn": [
+											{
+												"activity": "CopyToLanding",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "SetSHAValue",
+											"value": "@activity('GetFileMetadata').output.sha\n"
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "SetPreviousSHA",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "LookupSHA",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "SetPreviousSHA",
+								"value": "@activity('LookupSHA').output.firstRow\n"
+							}
+						},
+						{
+							"name": "FallbackSHA",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "LookupSHA",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "PreviousSHA",
+								"value": "''\n"
 							}
 						}
 					]
 				}
 			}
 		],
+		"variables": {
+			"SetSHAValue": {
+				"type": "String"
+			},
+			"FallbackSHA": {
+				"type": "String"
+			},
+			"SetPreviousSHA": {
+				"type": "String"
+			},
+			"PreviousSHA": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
