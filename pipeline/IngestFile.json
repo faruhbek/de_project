@@ -105,53 +105,9 @@
 				}
 			},
 			{
-				"name": "LookupManifest",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "GetFileMetadata",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/faruhbek@gmail.com/de_project/lookup_manifest",
-					"baseParameters": {
-						"folderPath": {
-							"value": "@pipeline().parameters.folderPath",
-							"type": "Expression"
-						},
-						"fileName": {
-							"value": "@pipeline().parameters.fileName",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_detest_databricks",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "If Condition1",
 				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "LookupManifest",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
