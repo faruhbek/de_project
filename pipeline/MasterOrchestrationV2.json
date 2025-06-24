@@ -77,7 +77,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"folderPath": {
-										"value": "raw",
+										"value": "raw/@{item().folderPath}",
 										"type": "Expression"
 									},
 									"fileName": {
