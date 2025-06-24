@@ -23,7 +23,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "raw/@{dataset().fileName}",
+					"value": "raw/@concat(replace({dataset().fileName},'.csv',''),'s')",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"
