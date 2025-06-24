@@ -115,7 +115,8 @@
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
+										"type": "DelimitedTextReadSettings",
+										"skipLineCount": 0
 									}
 								},
 								"dataset": {
@@ -136,13 +137,7 @@
 							"type": "IfCondition",
 							"dependsOn": [
 								{
-									"activity": "FallbackSHA",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								},
-								{
-									"activity": "SetPreviousSHA",
+									"activity": "WaitForSHA",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -151,7 +146,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@not(equals(activity('GetFileMetadata').output.sha, variables('SetPreviousSHA')))",
+									"value": "@not(equals(activity('GetFileMetadata').output.sha, coalesce(variables('PreviousSHA'), '')))\n",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
@@ -349,6 +344,8 @@
 						{
 							"name": "FallbackSHA",
 							"type": "SetVariable",
+							"state": "Inactive",
+							"onInactiveMarkAs": "Succeeded",
 							"dependsOn": [
 								{
 									"activity": "LookupSHA",
@@ -365,6 +362,28 @@
 							"typeProperties": {
 								"variableName": "PreviousSHA",
 								"value": "''\n"
+							}
+						},
+						{
+							"name": "WaitForSHA",
+							"type": "Wait",
+							"dependsOn": [
+								{
+									"activity": "SetPreviousSHA",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "FallbackSHA",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 3
 							}
 						}
 					]
