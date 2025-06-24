@@ -103,11 +103,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderPath": {
-											"value": "@activity('FiltertoFiles').output.Value[0].path",
+											"value": "@item().path",
 											"type": "Expression"
 										},
 										"fileName": {
-											"value": "@activity('FiltertoFiles').output.Value[0].name",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
@@ -119,11 +119,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderPath": {
-											"value": "@activity('FiltertoFiles').output.Value[0].path",
+											"value": "@item().path",
 											"type": "Expression"
 										},
 										"fileName": {
-											"value": "@activity('FiltertoFiles').output.Value[0].name",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
@@ -133,14 +133,7 @@
 						{
 							"name": "GetFileMetadata",
 							"type": "WebActivity",
-							"dependsOn": [
-								{
-									"activity": "CopyToLanding",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -160,6 +153,36 @@
 								"url": {
 									"value": "\nhttps://api.github.com/repos/faruhbek/de_project/contents/raw/@{activity('FiltertoFiles').output.Value[0].name}?ref=main\n",
 									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "LookupSHA",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"dataset": {
+									"referenceName": "SHAFileDataset",
+									"type": "DatasetReference"
 								}
 							}
 						}

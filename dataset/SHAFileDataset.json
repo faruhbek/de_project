@@ -1,0 +1,49 @@
+{
+	"name": "SHAFileDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_detesting_adls",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "raw",
+				"fileSystem": "metastorecontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "code",
+				"type": "String"
+			},
+			{
+				"name": "descrption",
+				"type": "String"
+			},
+			{
+				"name": "type",
+				"type": "String"
+			},
+			{
+				"name": "brand",
+				"type": "String"
+			},
+			{
+				"name": "size",
+				"type": "String"
+			}
+		]
+	}
+}
