@@ -23,7 +23,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@concat('raw/',dataset().folderPath)",
+					"value": "@dataset().folderPath",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"
