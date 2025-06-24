@@ -26,7 +26,7 @@
 					"value": "raw/@{concat(replace(dataset().fileName,'.csv',''),'s')}",
 					"type": "Expression"
 				},
-				"fileSystem": "landing"
+				"fileSystem": "metastorecontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
