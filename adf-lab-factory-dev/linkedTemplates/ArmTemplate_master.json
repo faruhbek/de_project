@@ -7,125 +7,17 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-lab-factory-dev"
 		},
-		"AzureBlobStorage2_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
-		},
-		"AzureDataLakeStorage1_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
-		},
-		"AzureDataLakeStorage2_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
-		},
-		"LS_ADLS_Storage_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Storage'"
-		},
-		"LS_AzureSqlDatabaseBnmData_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_AzureSqlDatabaseBnmData'"
-		},
-		"LS_BlobStorage002_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_BlobStorage002'"
-		},
-		"LS_DATA_LAKE002_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_DATA_LAKE002'"
-		},
-		"LS_LocalFileSystem_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_LocalFileSystem'"
-		},
 		"ls_azuresql_db_project_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_azuresql_db_project'"
-		},
-		"ls_blob_storage_dest_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_blob_storage_dest'"
-		},
-		"ls_databricks_bnmdata_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'ls_databricks_bnmdata'"
-		},
-		"ls_detesting_adls_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ls_detesting_adls'"
 		},
 		"ls_http_githubapi_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_http_githubapi'"
 		},
-		"lsblobstoragedev_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'lsblobstoragedev'"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://stradlslab.dfs.core.windows.net/"
-		},
-		"AzureDataLakeStorage2_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://strnewadlslab.dfs.core.windows.net/"
-		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
-		},
-		"LS_ADLS_Storage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://strnewadlslab.dfs.core.windows.net/"
-		},
-		"LS_AzureKeyVault2_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
-		},
-		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "azuresqldbbnmdata.database.windows.net"
-		},
-		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "azuresqldbbnmdata"
-		},
-		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "testuser"
-		},
-		"LS_DATA_LAKE002_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://stgadflabsdev.dfs.core.windows.net/"
-		},
-		"LS_HTTP_SingleFile_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{linkedService().URL}"
-		},
-		"LS_LocalFileSystem_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "C:\\Data"
-		},
-		"LS_LocalFileSystem_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "Farrukh\\adfuser"
-		},
 		"kv_testing_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://kv-detesting.vault.azure.net/"
-		},
-		"ls_OnPrem_AdventureWorks_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "Farrukh\\SQLEXPRESS"
-		},
-		"ls_OnPrem_AdventureWorks_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "AdventureWorks2022"
-		},
-		"ls_OnPrem_AdventureWorks_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "testuser"
 		},
 		"ls_adls_project_properties_typeProperties_url": {
 			"type": "string",
@@ -143,17 +35,9 @@
 			"type": "string",
 			"defaultValue": "serveradmin"
 		},
-		"ls_databricks_bnmdata_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0522-232346-4sbb00rw"
-		},
 		"ls_detest_databricks_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0625-034525-xe8la8d2"
-		},
-		"ls_detesting_adls_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://strdatabrickssadls.dfs.core.windows.net/"
 		},
 		"ls_http_githubapi_properties_typeProperties_url": {
 			"type": "string",
@@ -162,22 +46,6 @@
 		"ls_http_githubapi_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "faruhbek"
-		},
-		"ls_http_githubparam_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@{concat(\n  'https://raw.githubusercontent.com/',\n  linkedService().repoOwner,      '/', \n  linkedService().repoName,       '/',\n  'refs/heads/', \n  linkedService().branchName,     '/'\n)}"
-		},
-		"ls_http_githubparam_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "faruhbek"
-		},
-		"ls_http_nycovid_data_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://github.com/nytimes/covid-19-data/"
-		},
-		"ls_sqldbsecret_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -206,41 +74,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureBlobStorage2_connectionString": {
-						"value": "[parameters('AzureBlobStorage2_connectionString')]"
-					},
-					"LS_AzureSqlDatabaseBnmData_password": {
-						"value": "[parameters('LS_AzureSqlDatabaseBnmData_password')]"
-					},
 					"ls_azuresql_db_project_password": {
 						"value": "[parameters('ls_azuresql_db_project_password')]"
 					},
-					"ls_databricks_bnmdata_accessToken": {
-						"value": "[parameters('ls_databricks_bnmdata_accessToken')]"
-					},
-					"ls_detesting_adls_accountKey": {
-						"value": "[parameters('ls_detesting_adls_accountKey')]"
-					},
 					"ls_http_githubapi_password": {
 						"value": "[parameters('ls_http_githubapi_password')]"
-					},
-					"AzureDataLakeStorage1_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
-					},
-					"AzureKeyVault1_properties_typeProperties_baseUrl": {
-						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
-					},
-					"LS_AzureKeyVault2_properties_typeProperties_baseUrl": {
-						"value": "[parameters('LS_AzureKeyVault2_properties_typeProperties_baseUrl')]"
-					},
-					"LS_AzureSqlDatabaseBnmData_properties_typeProperties_server": {
-						"value": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_server')]"
-					},
-					"LS_AzureSqlDatabaseBnmData_properties_typeProperties_database": {
-						"value": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_database')]"
-					},
-					"LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName": {
-						"value": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName')]"
 					},
 					"kv_testing_properties_typeProperties_baseUrl": {
 						"value": "[parameters('kv_testing_properties_typeProperties_baseUrl')]"
@@ -257,107 +95,18 @@
 					"ls_azuresql_db_project_properties_typeProperties_userName": {
 						"value": "[parameters('ls_azuresql_db_project_properties_typeProperties_userName')]"
 					},
-					"ls_databricks_bnmdata_properties_typeProperties_existingClusterId": {
-						"value": "[parameters('ls_databricks_bnmdata_properties_typeProperties_existingClusterId')]"
-					},
 					"ls_detest_databricks_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ls_detest_databricks_properties_typeProperties_existingClusterId')]"
-					},
-					"ls_detesting_adls_properties_typeProperties_url": {
-						"value": "[parameters('ls_detesting_adls_properties_typeProperties_url')]"
 					},
 					"ls_http_githubapi_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_githubapi_properties_typeProperties_url')]"
 					},
 					"ls_http_githubapi_properties_typeProperties_userName": {
 						"value": "[parameters('ls_http_githubapi_properties_typeProperties_userName')]"
-					},
-					"ls_sqldbsecret_properties_typeProperties_baseUrl": {
-						"value": "[parameters('ls_sqldbsecret_properties_typeProperties_baseUrl')]"
-					},
-					"AzureDataLakeStorage1_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "adf-lab-factory-dev_ArmTemplate_1",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2024-03-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
-					},
-					"AzureDataLakeStorage2_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
-					},
-					"LS_ADLS_Storage_accountKey": {
-						"value": "[parameters('LS_ADLS_Storage_accountKey')]"
-					},
-					"LS_BlobStorage002_connectionString": {
-						"value": "[parameters('LS_BlobStorage002_connectionString')]"
-					},
-					"LS_DATA_LAKE002_accountKey": {
-						"value": "[parameters('LS_DATA_LAKE002_accountKey')]"
-					},
-					"LS_LocalFileSystem_password": {
-						"value": "[parameters('LS_LocalFileSystem_password')]"
-					},
-					"ls_blob_storage_dest_connectionString": {
-						"value": "[parameters('ls_blob_storage_dest_connectionString')]"
-					},
-					"lsblobstoragedev_connectionString": {
-						"value": "[parameters('lsblobstoragedev_connectionString')]"
-					},
-					"AzureDataLakeStorage2_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
-					},
-					"LS_ADLS_Storage_properties_typeProperties_url": {
-						"value": "[parameters('LS_ADLS_Storage_properties_typeProperties_url')]"
-					},
-					"LS_DATA_LAKE002_properties_typeProperties_url": {
-						"value": "[parameters('LS_DATA_LAKE002_properties_typeProperties_url')]"
-					},
-					"LS_HTTP_SingleFile_properties_typeProperties_url": {
-						"value": "[parameters('LS_HTTP_SingleFile_properties_typeProperties_url')]"
-					},
-					"LS_LocalFileSystem_properties_typeProperties_host": {
-						"value": "[parameters('LS_LocalFileSystem_properties_typeProperties_host')]"
-					},
-					"LS_LocalFileSystem_properties_typeProperties_userId": {
-						"value": "[parameters('LS_LocalFileSystem_properties_typeProperties_userId')]"
-					},
-					"ls_OnPrem_AdventureWorks_properties_typeProperties_server": {
-						"value": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_server')]"
-					},
-					"ls_OnPrem_AdventureWorks_properties_typeProperties_database": {
-						"value": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_database')]"
-					},
-					"ls_OnPrem_AdventureWorks_properties_typeProperties_userName": {
-						"value": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_userName')]"
-					},
-					"ls_http_githubparam_properties_typeProperties_url": {
-						"value": "[parameters('ls_http_githubparam_properties_typeProperties_url')]"
-					},
-					"ls_http_githubparam_properties_typeProperties_userName": {
-						"value": "[parameters('ls_http_githubparam_properties_typeProperties_userName')]"
-					},
-					"ls_http_nycovid_data_properties_typeProperties_url": {
-						"value": "[parameters('ls_http_nycovid_data_properties_typeProperties_url')]"
-					}
-				}
-			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'adf-lab-factory-dev_ArmTemplate_0')]"
-			]
 		}
 	]
 }
