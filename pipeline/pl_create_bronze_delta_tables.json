@@ -1,0 +1,331 @@
+{
+	"name": "pl_create_bronze_delta_tables",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Todays files",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from [dbo].[FileCopyAudit]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_azuresql_audit_project",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Todays files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Todays files').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "create_bronze_delta_tables",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/faruhbek@gmail.com/de_project/nb_create_bronze_delta_tables",
+								"baseParameters": {
+									"fileName": {
+										"value": "@item().fileName",
+										"type": "Expression"
+									},
+									"dateHierarchy": {
+										"value": "@concat(split(item().DestinationPath, '/')[1], '/', split(item().DestinationPath, '/')[2], '/', split(item().DestinationPath, '/')[3])\n",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_detest_databricks",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "audit_success",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "create_bronze_delta_tables",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[InsertFileCopyAudit]",
+								"storedProcedureParameters": {
+									"ActivityName": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"CopyDurationSec": {
+										"value": null,
+										"type": "Int32"
+									},
+									"DataReadBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"DataWrittenBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"DestinationPath": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.destinationPath",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"DIUsUsed": {
+										"value": null,
+										"type": "Int32"
+									},
+									"ErrorMessage": {
+										"value": null,
+										"type": "String"
+									},
+									"FileName": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.fileName",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"FilePath": {
+										"value": null,
+										"type": "String"
+									},
+									"FileSHA": {
+										"value": null,
+										"type": "String"
+									},
+									"FileSizeBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"FilesRead": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.rowCount",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"FilesWritten": {
+										"value": null,
+										"type": "Int32"
+									},
+									"IntegrationRuntime": {
+										"value": null,
+										"type": "String"
+									},
+									"PipelineRunID": {
+										"value": null,
+										"type": "String"
+									},
+									"SourceURL": {
+										"value": null,
+										"type": "String"
+									},
+									"StartTimeUTC": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.timestamp",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"Status": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.status",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ThroughputMBps": {
+										"value": null,
+										"type": "Double"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_azuresql_db_project",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "audit_fail",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "create_bronze_delta_tables",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[InsertFileCopyAudit]",
+								"storedProcedureParameters": {
+									"ActivityName": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"CopyDurationSec": {
+										"value": null,
+										"type": "Int32"
+									},
+									"DataReadBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"DataWrittenBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"DestinationPath": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.destinationPath",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"DIUsUsed": {
+										"value": null,
+										"type": "Int32"
+									},
+									"ErrorMessage": {
+										"value": null,
+										"type": "String"
+									},
+									"FileName": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.fileName",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"FilePath": {
+										"value": null,
+										"type": "String"
+									},
+									"FileSHA": {
+										"value": null,
+										"type": "String"
+									},
+									"FileSizeBytes": {
+										"value": null,
+										"type": "Int64"
+									},
+									"FilesRead": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.rowCount",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"FilesWritten": {
+										"value": null,
+										"type": "Int32"
+									},
+									"IntegrationRuntime": {
+										"value": null,
+										"type": "String"
+									},
+									"PipelineRunID": {
+										"value": null,
+										"type": "String"
+									},
+									"SourceURL": {
+										"value": null,
+										"type": "String"
+									},
+									"StartTimeUTC": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.timestamp",
+											"type": "Expression"
+										},
+										"type": "DateTime"
+									},
+									"Status": {
+										"value": {
+											"value": "@activity('create_bronze_delta_tables').output.runOutput.status",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ThroughputMBps": {
+										"value": null,
+										"type": "Double"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_azuresql_db_project",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
