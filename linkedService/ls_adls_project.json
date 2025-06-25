@@ -1,0 +1,10 @@
+{
+	"name": "ls_adls_project",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://strdatabrickssadls.dfs.core.windows.net/"
+		}
+	}
+}
