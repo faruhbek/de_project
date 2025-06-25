@@ -1,0 +1,138 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-lab-factory-dev"
+		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"LS_ADLS_Storage_accountKey": {
+			"value": ""
+		},
+		"LS_AzureSqlDatabaseBnmData_password": {
+			"value": ""
+		},
+		"LS_BlobStorage002_connectionString": {
+			"value": ""
+		},
+		"LS_DATA_LAKE002_accountKey": {
+			"value": ""
+		},
+		"LS_LocalFileSystem_password": {
+			"value": ""
+		},
+		"ls_azuresql_db_project_password": {
+			"value": ""
+		},
+		"ls_blob_storage_dest_connectionString": {
+			"value": ""
+		},
+		"ls_databricks_bnmdata_accessToken": {
+			"value": ""
+		},
+		"ls_detesting_adls_accountKey": {
+			"value": ""
+		},
+		"ls_http_githubapi_password": {
+			"value": ""
+		},
+		"lsblobstoragedev_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://stradlslab.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://strnewadlslab.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://kv-adf-labsdev.vault.azure.net/"
+		},
+		"LS_ADLS_Storage_properties_typeProperties_url": {
+			"value": "https://strnewadlslab.dfs.core.windows.net/"
+		},
+		"LS_AzureKeyVault2_properties_typeProperties_baseUrl": {
+			"value": "https://kv-adf-labsdev.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_server": {
+			"value": "azuresqldbbnmdata.database.windows.net"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_database": {
+			"value": "azuresqldbbnmdata"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName": {
+			"value": "testuser"
+		},
+		"LS_DATA_LAKE002_properties_typeProperties_url": {
+			"value": "https://stgadflabsdev.dfs.core.windows.net/"
+		},
+		"LS_HTTP_SingleFile_properties_typeProperties_url": {
+			"value": "@{linkedService().URL}"
+		},
+		"LS_LocalFileSystem_properties_typeProperties_host": {
+			"value": "C:\\Data"
+		},
+		"LS_LocalFileSystem_properties_typeProperties_userId": {
+			"value": "Farrukh\\adfuser"
+		},
+		"kv_testing_properties_typeProperties_baseUrl": {
+			"value": "https://kv-detesting.vault.azure.net/"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_server": {
+			"value": "Farrukh\\SQLEXPRESS"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_userName": {
+			"value": "testuser"
+		},
+		"ls_adls_project_properties_typeProperties_url": {
+			"value": "https://strdatabrickssadls.dfs.core.windows.net/"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_server": {
+			"value": "projectserversql.database.windows.net"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_database": {
+			"value": "sqldbproject"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_userName": {
+			"value": "serveradmin"
+		},
+		"ls_databricks_bnmdata_properties_typeProperties_existingClusterId": {
+			"value": "0522-232346-4sbb00rw"
+		},
+		"ls_detest_databricks_properties_typeProperties_existingClusterId": {
+			"value": "0625-034525-xe8la8d2"
+		},
+		"ls_detesting_adls_properties_typeProperties_url": {
+			"value": "https://strdatabrickssadls.dfs.core.windows.net/"
+		},
+		"ls_http_githubapi_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_http_githubapi_properties_typeProperties_userName": {
+			"value": "faruhbek"
+		},
+		"ls_http_githubparam_properties_typeProperties_url": {
+			"value": "@{concat(\n  'https://raw.githubusercontent.com/',\n  linkedService().repoOwner,      '/', \n  linkedService().repoName,       '/',\n  'refs/heads/', \n  linkedService().branchName,     '/'\n)}"
+		},
+		"ls_http_githubparam_properties_typeProperties_userName": {
+			"value": "faruhbek"
+		},
+		"ls_http_nycovid_data_properties_typeProperties_url": {
+			"value": "https://github.com/nytimes/covid-19-data/"
+		},
+		"ls_sqldbsecret_properties_typeProperties_baseUrl": {
+			"value": "https://kv-adf-labsdev.vault.azure.net/"
+		}
+	}
+}

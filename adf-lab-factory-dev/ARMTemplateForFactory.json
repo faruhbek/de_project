@@ -1,0 +1,1909 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-lab-factory-dev"
+		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"LS_ADLS_Storage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Storage'"
+		},
+		"LS_AzureSqlDatabaseBnmData_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_AzureSqlDatabaseBnmData'"
+		},
+		"LS_BlobStorage002_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_BlobStorage002'"
+		},
+		"LS_DATA_LAKE002_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DATA_LAKE002'"
+		},
+		"LS_LocalFileSystem_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_LocalFileSystem'"
+		},
+		"ls_azuresql_db_project_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_azuresql_db_project'"
+		},
+		"ls_blob_storage_dest_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_storage_dest'"
+		},
+		"ls_databricks_bnmdata_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks_bnmdata'"
+		},
+		"ls_detesting_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_detesting_adls'"
+		},
+		"ls_http_githubapi_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_http_githubapi'"
+		},
+		"lsblobstoragedev_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'lsblobstoragedev'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stradlslab.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://strnewadlslab.dfs.core.windows.net/"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
+		},
+		"LS_ADLS_Storage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://strnewadlslab.dfs.core.windows.net/"
+		},
+		"LS_AzureKeyVault2_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "azuresqldbbnmdata.database.windows.net"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "azuresqldbbnmdata"
+		},
+		"LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "testuser"
+		},
+		"LS_DATA_LAKE002_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stgadflabsdev.dfs.core.windows.net/"
+		},
+		"LS_HTTP_SingleFile_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().URL}"
+		},
+		"LS_LocalFileSystem_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\Data"
+		},
+		"LS_LocalFileSystem_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "Farrukh\\adfuser"
+		},
+		"kv_testing_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-detesting.vault.azure.net/"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "Farrukh\\SQLEXPRESS"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorks2022"
+		},
+		"ls_OnPrem_AdventureWorks_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "testuser"
+		},
+		"ls_adls_project_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://strdatabrickssadls.dfs.core.windows.net/"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "projectserversql.database.windows.net"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldbproject"
+		},
+		"ls_azuresql_db_project_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "serveradmin"
+		},
+		"ls_databricks_bnmdata_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0522-232346-4sbb00rw"
+		},
+		"ls_detest_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0625-034525-xe8la8d2"
+		},
+		"ls_detesting_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://strdatabrickssadls.dfs.core.windows.net/"
+		},
+		"ls_http_githubapi_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"ls_http_githubapi_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "faruhbek"
+		},
+		"ls_http_githubparam_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat(\n  'https://raw.githubusercontent.com/',\n  linkedService().repoOwner,      '/', \n  linkedService().repoName,       '/',\n  'refs/heads/', \n  linkedService().branchName,     '/'\n)}"
+		},
+		"ls_http_githubparam_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "faruhbek"
+		},
+		"ls_http_nycovid_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com/nytimes/covid-19-data/"
+		},
+		"ls_sqldbsecret_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adf-labsdev.vault.azure.net/"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_bronze_to_silver')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Check for Silver Process",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT [AuditID]\n      ,[FileName]\n      ,[FilePath]\n      ,[SourceURL]\n      ,[DestinationPath]\n      ,[FileSHA]\n      ,[FileSizeBytes]\n      ,[DataReadBytes]\n      ,[DataWrittenBytes]\n      ,[FilesRead]\n      ,[FilesWritten]\n      ,[ThroughputMBps]\n      ,[CopyDurationSec]\n      ,[Status]\n      ,[ErrorMessage]\n      ,[IntegrationRuntime]\n      ,[DIUsUsed]\n      ,[PipelineRunID]\n      ,[ActivityName]\n      ,[StartTimeUTC]\n      ,[InsertedOnUTC]\n  FROM [dbo].[FileCopyAudit]\n  where ActivityName = 'pl_create_bronze_delta_tables'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_azuresql_audit_project",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Check for Silver Process",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Check for Silver Process').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "create silver tables",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": {
+											"value": "@concat('/Users/faruhbek', '@', 'gmail.com/de_project/nb_create_silver_', item().FileName, '_delta_tables')",
+											"type": "Expression"
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_detest_databricks",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "audit_success",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "create silver tables",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[dbo].[InsertFileCopyAudit]",
+										"storedProcedureParameters": {
+											"ActivityName": {
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"CopyDurationSec": {
+												"value": null,
+												"type": "Int32"
+											},
+											"DataReadBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DataWrittenBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DestinationPath": {
+												"value": {
+													"value": "@activity('create silver tables').output.runOutput.destinationPath",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"DIUsUsed": {
+												"value": null,
+												"type": "Int32"
+											},
+											"ErrorMessage": {
+												"value": null,
+												"type": "String"
+											},
+											"FileName": {
+												"value": {
+													"value": "@activity('create silver tables').output.runOutput.fileName",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FilePath": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSHA": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSizeBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"FilesRead": {
+												"value": {
+													"value": "@activity('create silver tables').output.runOutput.rowCount",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"FilesWritten": {
+												"value": null,
+												"type": "Int32"
+											},
+											"IntegrationRuntime": {
+												"value": null,
+												"type": "String"
+											},
+											"PipelineRunID": {
+												"value": null,
+												"type": "String"
+											},
+											"SourceURL": {
+												"value": null,
+												"type": "String"
+											},
+											"StartTimeUTC": {
+												"value": {
+													"value": "@activity('create silver tables').output.runOutput.timestamp",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"Status": {
+												"value": {
+													"value": "@activity('create silver tables').output.runOutput.status",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"ThroughputMBps": {
+												"value": null,
+												"type": "Double"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_azuresql_db_project",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_azuresql_audit_project')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_detest_databricks')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_db_project')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_create_bronze_delta_tables')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Todays files",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select * from [dbo].[FileCopyAudit] where ActivityName = 'pl_ingestion_github_adls'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ds_azuresql_audit_project",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Todays files",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Todays files').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "create_bronze_delta_tables",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/faruhbek@gmail.com/de_project/nb_create_bronze_delta_tables",
+										"baseParameters": {
+											"fileName": {
+												"value": "@item().fileName",
+												"type": "Expression"
+											},
+											"dateHierarchy": {
+												"value": "@concat(split(item().DestinationPath, '/')[1], '/', split(item().DestinationPath, '/')[2], '/', split(item().DestinationPath, '/')[3])\n",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_detest_databricks",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "audit_success",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "create_bronze_delta_tables",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[dbo].[InsertFileCopyAudit]",
+										"storedProcedureParameters": {
+											"ActivityName": {
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"CopyDurationSec": {
+												"value": null,
+												"type": "Int32"
+											},
+											"DataReadBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DataWrittenBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DestinationPath": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.destinationPath",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"DIUsUsed": {
+												"value": null,
+												"type": "Int32"
+											},
+											"ErrorMessage": {
+												"value": null,
+												"type": "String"
+											},
+											"FileName": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.fileName",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FilePath": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSHA": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSizeBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"FilesRead": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.rowCount",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"FilesWritten": {
+												"value": null,
+												"type": "Int32"
+											},
+											"IntegrationRuntime": {
+												"value": null,
+												"type": "String"
+											},
+											"PipelineRunID": {
+												"value": null,
+												"type": "String"
+											},
+											"SourceURL": {
+												"value": null,
+												"type": "String"
+											},
+											"StartTimeUTC": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.timestamp",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"Status": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.status",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"ThroughputMBps": {
+												"value": null,
+												"type": "Double"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_azuresql_db_project",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "audit_fail",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "create_bronze_delta_tables",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[dbo].[InsertFileCopyAudit]",
+										"storedProcedureParameters": {
+											"ActivityName": {
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"CopyDurationSec": {
+												"value": null,
+												"type": "Int32"
+											},
+											"DataReadBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DataWrittenBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"DestinationPath": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.destinationPath",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"DIUsUsed": {
+												"value": null,
+												"type": "Int32"
+											},
+											"ErrorMessage": {
+												"value": null,
+												"type": "String"
+											},
+											"FileName": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.fileName",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FilePath": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSHA": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSizeBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"FilesRead": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.rowCount",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"FilesWritten": {
+												"value": null,
+												"type": "Int32"
+											},
+											"IntegrationRuntime": {
+												"value": null,
+												"type": "String"
+											},
+											"PipelineRunID": {
+												"value": null,
+												"type": "String"
+											},
+											"SourceURL": {
+												"value": null,
+												"type": "String"
+											},
+											"StartTimeUTC": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.timestamp",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"Status": {
+												"value": {
+													"value": "@activity('create_bronze_delta_tables').output.runOutput.status",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"ThroughputMBps": {
+												"value": null,
+												"type": "Double"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_azuresql_db_project",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_azuresql_audit_project')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_detest_databricks')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_db_project')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_ingestion_github_adls')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ListFilesInRaw",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Pipeline Rundate",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "GET",
+							"headers": {},
+							"url": "https://api.github.com/repos/faruhbek/de_project/contents/raw?ref=main"
+						}
+					},
+					{
+						"name": "FiltertoFiles",
+						"type": "Filter",
+						"dependsOn": [
+							{
+								"activity": "ListFilesInRaw",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@json(activity('ListFilesInRaw').output.Response)  ",
+								"type": "Expression"
+							},
+							"condition": {
+								"value": "@equals(item().type,'file')  ",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Pipeline Rundate",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "varDate",
+							"value": {
+								"value": "@formatDateTime(utcNow(), 'ddMMyyyy')\n",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "copyFilesFromGithubToADLS",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "FiltertoFiles",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('FiltertoFiles').output.Value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy GithubFiles into ADLS",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "BinarySource",
+											"storeSettings": {
+												"type": "HttpReadSettings",
+												"requestMethod": "GET"
+											},
+											"formatSettings": {
+												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_http_binary_files",
+											"type": "DatasetReference",
+											"parameters": {
+												"relativeURL": {
+													"value": "@split(item().download_url, 'https://raw.githubusercontent.com/')[1]",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ds_github_binary_adls",
+											"type": "DatasetReference",
+											"parameters": {
+												"fileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												},
+												"folderName": {
+													"value": "@concat(split(item().name, '.')[0], '/', concat(substring(variables('varDate'), 4, 4), '/', substring(variables('varDate'), 2, 2), '/', substring(variables('varDate'), 0, 2)))",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "audit_success",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Copy GithubFiles into ADLS",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[dbo].[InsertFileCopyAudit]",
+										"storedProcedureParameters": {
+											"ActivityName": {
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"CopyDurationSec": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.copyDuration",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"DataReadBytes": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.dataRead",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"DataWrittenBytes": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.dataWritten",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"DestinationPath": {
+												"value": {
+													"value": "@concat(split(item().name, '.')[0], '/',\n    substring(variables('varDate'), 4, 4), '/',\n    substring(variables('varDate'), 2, 2), '/',\n    substring(variables('varDate'), 0, 2), '/',\n    item().name\n)\n",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"DIUsUsed": {
+												"value": null,
+												"type": "Int32"
+											},
+											"ErrorMessage": {
+												"value": null,
+												"type": "String"
+											},
+											"FileName": {
+												"value": {
+													"value": "@split(item().name, '.')[0]",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FilePath": {
+												"value": {
+													"value": "@item().html_url",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FileSHA": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSizeBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"FilesRead": {
+												"value": null,
+												"type": "Int32"
+											},
+											"FilesWritten": {
+												"value": null,
+												"type": "Int32"
+											},
+											"IntegrationRuntime": {
+												"value": null,
+												"type": "String"
+											},
+											"PipelineRunID": {
+												"value": null,
+												"type": "String"
+											},
+											"SourceURL": {
+												"value": null,
+												"type": "String"
+											},
+											"StartTimeUTC": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.executionDetails[0].start",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"Status": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.executionDetails[0].status",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"ThroughputMBps": {
+												"value": null,
+												"type": "Double"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_azuresql_db_project",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "audit_fail",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Copy GithubFiles into ADLS",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[dbo].[InsertFileCopyAudit]",
+										"storedProcedureParameters": {
+											"ActivityName": {
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"CopyDurationSec": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.copyDuration",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											},
+											"DataReadBytes": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.dataRead",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"DataWrittenBytes": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.dataWritten",
+													"type": "Expression"
+												},
+												"type": "Int64"
+											},
+											"DestinationPath": {
+												"value": {
+													"value": "@concat(split(item().name, '.')[0], '/',\n    substring(variables('varDate'), 4, 4), '/',\n    substring(variables('varDate'), 2, 2), '/',\n    substring(variables('varDate'), 0, 2), '/',\n    item().name\n)\n",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"DIUsUsed": {
+												"value": null,
+												"type": "Int32"
+											},
+											"ErrorMessage": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.errors",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FileName": {
+												"value": {
+													"value": "@split(item().name, '.')[0]",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FilePath": {
+												"value": {
+													"value": "@item().html_url",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"FileSHA": {
+												"value": null,
+												"type": "String"
+											},
+											"FileSizeBytes": {
+												"value": null,
+												"type": "Int64"
+											},
+											"FilesRead": {
+												"value": null,
+												"type": "Int32"
+											},
+											"FilesWritten": {
+												"value": null,
+												"type": "Int32"
+											},
+											"IntegrationRuntime": {
+												"value": null,
+												"type": "String"
+											},
+											"PipelineRunID": {
+												"value": null,
+												"type": "String"
+											},
+											"SourceURL": {
+												"value": null,
+												"type": "String"
+											},
+											"StartTimeUTC": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.executionDetails[0].start",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"Status": {
+												"value": {
+													"value": "@activity('Copy GithubFiles into ADLS').output.executionDetails[0].status",
+													"type": "Expression"
+												},
+												"type": "String"
+											},
+											"ThroughputMBps": {
+												"value": null,
+												"type": "Double"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "ls_azuresql_db_project",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"varDate": {
+						"type": "String"
+					},
+					"testName": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_http_binary_files')]",
+				"[concat(variables('factoryId'), '/datasets/ds_github_binary_adls')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_db_project')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_orchestrate_project')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "source_to_landing",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_ingestion_github_adls",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "adls_to_bronze_delta",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "source_to_landing",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_create_bronze_delta_tables",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "silver_layer_loading",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "adls_to_bronze_delta",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pl_bronze_to_silver",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_ingestion_github_adls')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_create_bronze_delta_tables')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_bronze_to_silver')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_azuresql_audit_project')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azuresql_db_project",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azuresql_db_project')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_github_binary_adls')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_project",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileName": {
+						"type": "string"
+					},
+					"folderName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folderName",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_project')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_http_binary_files')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_http_githubapi",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"relativeURL": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "@dataset().relativeURL",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_http_githubapi')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage2_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADLS_Storage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_ADLS_Storage_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ADLS_Storage_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_AzureKeyVault2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('LS_AzureKeyVault2_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_AzureSqlDatabaseBnmData')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_server')]",
+					"database": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_AzureSqlDatabaseBnmData_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_AzureSqlDatabaseBnmData_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_BlobStorage002')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_BlobStorage002_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_DATA_LAKE002')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_DATA_LAKE002_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DATA_LAKE002_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_HTTP_SingleFile')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"URL": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('LS_HTTP_SingleFile_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_LocalFileSystem')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('LS_LocalFileSystem_properties_typeProperties_host')]",
+					"userId": "[parameters('LS_LocalFileSystem_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_LocalFileSystem_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-SelfHostedLocal",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-SelfHostedLocal')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/kv_testing')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('kv_testing_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_OnPrem_AdventureWorks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_server')]",
+					"database": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_database')]",
+					"encrypt": "optional",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_OnPrem_AdventureWorks_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ls_sqldbsecret",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "SQLdbsecret"
+					}
+				},
+				"connectVia": {
+					"referenceName": "IR-SelfHostedLocal",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-SelfHostedLocal')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqldbsecret')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_adls_project')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_adls_project_properties_typeProperties_url')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_azuresql_db_project')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_azuresql_db_project_properties_typeProperties_server')]",
+					"database": "[parameters('ls_azuresql_db_project_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_azuresql_db_project_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_azuresql_db_project_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_blob_storage_dest')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_blob_storage_dest_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_databricks_bnmdata')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1327860115148915.15.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('ls_databricks_bnmdata_accessToken')]"
+					},
+					"existingClusterId": "[parameters('ls_databricks_bnmdata_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_detest_databricks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1327860115148915.15.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/9d16ccf0-c7ea-41fb-876b-cacbf8283dee/resourceGroups/rg-adf-labs/providers/Microsoft.Databricks/workspaces/db-dataclassdev",
+					"existingClusterId": "[parameters('ls_detest_databricks_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_detesting_adls')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ls_detesting_adls_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ls_detesting_adls_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_http_githubapi')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('ls_http_githubapi_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('ls_http_githubapi_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_http_githubapi_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_http_githubparam')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"repoOwner": {
+						"type": "String",
+						"defaultValue": "faruhbek"
+					},
+					"repoName": {
+						"type": "String",
+						"defaultValue": "de_project"
+					},
+					"branchName": {
+						"type": "String",
+						"defaultValue": "main"
+					}
+				},
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('ls_http_githubparam_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('ls_http_githubparam_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "kv_testing",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "github-token"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/kv_testing')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_http_nycovid_data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('ls_http_nycovid_data_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_sqldbsecret')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('ls_sqldbsecret_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/lsblobstoragedev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('lsblobstoragedev_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "IR-CloudAuto",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-CloudAuto')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trgr_Daily_OnlineCSV')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 15,
+						"startTime": "2025-04-01T06:00:00",
+						"timeZone": "Central Standard Time"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2025-03-31T18:05:00",
+						"timeZone": "Central Standard Time"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IR-CloudAuto')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IR-SelfHostedLocal')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {
+					"selfContainedInteractiveAuthoringEnabled": true
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
