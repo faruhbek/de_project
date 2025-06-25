@@ -1,0 +1,12 @@
+{
+	"name": "ds_azuresql_audit_project",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azuresql_db_project",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
