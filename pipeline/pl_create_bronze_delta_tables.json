@@ -59,7 +59,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/faruhbek@gmail.com/de_project/nb_create_bronze_delta_tables",
+								"notebookPath": "/Repos/faruhbek@gmail.com/de_project/databricks/nb_create_bronze_delta_tables",
 								"baseParameters": {
 									"fileName": {
 										"value": "@item().fileName",
