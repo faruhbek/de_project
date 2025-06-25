@@ -40,6 +40,29 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "silver_layer_loading",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "adls_to_bronze_delta",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_bronze_to_silver",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"annotations": []
