@@ -1,0 +1,25 @@
+{
+	"name": "ds_http_binary_files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_http_githubapi",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relativeURL": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().relativeURL",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
