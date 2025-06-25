@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select * from [dbo].[FileCopyAudit]",
+						"sqlReaderQuery": "select * from [dbo].[FileCopyAudit] where ActivityName = 'pl_ingestion_github_adls'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
